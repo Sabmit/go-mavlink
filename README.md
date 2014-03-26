@@ -1,13 +1,17 @@
 #go-mavlink
 
+Go implementation of the MAVLink protocol.
+You can make your drone fly with Go.
 
-go impletation of the MAVLink protocol.
 ```text
-MAVLink or Micro Air Vehicle Link is a protocol for communicating with small unmanned vehicle. It's designed as a header-only message marshaling library. MAVLink was first released early 2009 by Lorenz Meier under LGPL license.
+MAVLink or Micro Air Vehicle Link is a protocol for communicating with small unmanned vehicle.
+It's designed as a header-only message marshaling library.
+MAVLink was first released early 2009 by Lorenz Meier under LGPL license.
 ```
-This implementation is mainly inspired by the C version (see [on GitHub](https://github.com/mavlink/qgroundcontrol/tree/master/libs/mavlink/include/mavlink/v1.0)).
-Only tested under Unix
 
+This implementation is mainly inspired by the C version (see [on GitHub](https://github.com/mavlink/qgroundcontrol/tree/master/libs/mavlink/include/mavlink/v1.0)).
+
+Only tested under Unix
 
 #Usage
 
@@ -59,17 +63,17 @@ func main() {
 	conn, _ := net.ListenUDP("udp", laddr) // check errors
 
 	parser := mav.GetMavParser()
-    reader := bufio.NewReader(conn)
+        reader := bufio.NewReader(conn)
 
-    for {
-    	c, _ := reader.ReadByte() // check errors
+        for {
+    	    c, _ := reader.ReadByte() // check errors
 
-        packet, err := parser(c)
-        if err != nil {
-        	log.Fatalf("Parser error: ", err)
-        } else if packet != nil {
+            packet, err := parser(c)
+            if err != nil {
+           	log.Fatalf("Parser error: ", err)
+            } else if packet != nil {
         	fmt.Println("Packet received :", packet.Bytes())
-    	}
+    	    }
 	}
 }
 ```
@@ -105,14 +109,13 @@ func main() {
 ##More
 The operation is simple : get the MavParser and then, parse each received byte untill you get a non-nil pointer pointing to the full MavPacket.
 
-Please read `main_udp.go` and `main_serial.go` if you want the full code examples.
-
+Please read `main_udp.go` if you want the full code examples.
 
 
 #TO-DO
 * For now, only the received packet has its own checksum computed on the go
 * Verify if all properties of each message is in its own place (see [Mavlink generator](http://www.qgroundcontrol.org/mavlink/generator))
-
+* Create some tests for future devlopment...
 
 #See
 * [Mavlink documentation](https://pixhawk.ethz.ch/mavlink/)
@@ -121,5 +124,5 @@ Please read `main_udp.go` and `main_serial.go` if you want the full code example
 
 #Authors
 
-[ungerik]: https://github.com/ungerik
-[sabmit]: http://github.com/sabmit
+[ungerik](https://github.com/ungerik)
+[sabmit](http://github.com/sabmit)
